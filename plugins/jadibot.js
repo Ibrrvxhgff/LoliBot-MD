@@ -4,8 +4,8 @@ let commandFlags = {};
 const handler = async (m, { conn, command }) => {
 commandFlags[m.sender] = true;
   
-const rtx = `*🔰 LoliBot-MD 🔰*\nㅤㅤㅤㅤSer sub bot\n\n*Con otro telefono que tengas o en la PC escanea este QR para convertirte en un sub bot*\n\n*1. Haga clic en los tres puntos en la esquina superior derecha*\n*2. Toca WhatsApp Web*\n*3. Escanee este código QR*\n*Este código QR expira en 45 segundos!*\n\n> *⚠️ No nos hacemos responsable del mal uso que se le pueda dar.*`;
-const rtx2 = `*🔰 LoliBot-MD 🔰*\nㅤㅤㅤㅤSer sub bot\n\n*1️⃣ Dirígete a los tres puntos en la esquina superior derecha*\n*2️⃣ Opción: Dispositivos vinculados*\n*3️⃣ Vincular con código de teléfono*\n*4️⃣ Pega el código a continuación*\n> Codigo de 8 digitos vencen en 60 segundos`;
+const rtx = `*🔰 LoliBot-MD 🔰*\nㅤㅤㅤㅤلتصبح بوت فرعي\n\n*امسح رمز QR هذا من هاتف آخر أو من الكمبيوتر لتصبح بوتًا فرعيًا*\n\n*١. اضغط على النقاط الثلاث في الزاوية العلوية اليمنى*\n*٢. اختر واتساب ويب*\n*٣. امسح رمز QR هذا*\n*ينتهي صلاحية رمز QR هذا خلال 45 ثانية!*\n\n> *⚠️ نحن غير مسؤولين عن أي سوء استخدام قد يحدث.*`;
+const rtx2 = `*🔰 LoliBot-MD 🔰*\nㅤㅤㅤㅤلتصبح بوت فرعي\n\n*١️⃣ اذهب إلى النقاط الثلاث في الزاوية العلوية اليمنى*\n*٢️⃣ خيار: الأجهزة المرتبطة*\n*٣️⃣ ربط باستخدام رقم الهاتف*\n*٤️⃣ الصق الرمز أدناه*\n> رمز مكون من 8 أرقام، تنتهي صلاحيته خلال 60 ثانية`;
 
 const phone = m.sender?.split('@')[0];
 const isCode = /^(serbot|code)$/.test(command);
