@@ -4,25 +4,25 @@ import hispamemes from 'hispamemes'
 import { db } from '../lib/postgres.js'
 
 const contenido = {
-  waifu: { label: '*💖 Nyaww 💖*', api: 'waifu', nsfwApi: 'waifu', type: 'api', aliases: [] },
-  neko: { label: '🐱 Neko', api: 'neko', nsfwApi: 'neko', type: 'api', aliases: ['gatito', 'nyan'] },
-  shinobu: { label: '🍡 Shinobu', api: 'shinobu', type: 'api', aliases: [] },
-  megumin: { label: '💥 Megumin', api: 'megumin', type: 'api', aliases: ['meg'] },
-  bully: { label: '😈 Bully', api: 'bully', type: 'api', aliases: [] },
-  cuddle: { label: '🥰 Cuddle', api: 'cuddle', type: 'api', aliases: [] },
-  cry: { label: '😭 Cry', api: 'cry', type: 'api', aliases: [] },
-  bonk: { label: '🔨 Bonk', api: 'bonk', type: 'api', aliases: [] },
-  wink: { label: '😉 Wink', api: 'wink', type: 'api', aliases: [] },
-  handhold: { label: '🤝 Handhold', api: 'handhold', type: 'api', aliases: [] },
-  nom: { label: '🍪 Nom', api: 'nom', type: 'api', aliases: [] },
-  glomp: { label: '💞 Glomp', api: 'glomp', type: 'api', aliases: [] },
-  happy: { label: '😁 Happy', api: 'happy', type: 'api', aliases: [] },
-  poke: { label: '👉 Poke', api: 'poke', type: 'api', aliases: [] },
-  dance: { label: '💃 Dance', api: 'dance', type: 'api', aliases: [] },
-  meme: { label: '🤣 Meme', isMeme: true, aliases: ['memes', 'meme2'] },
-  loli: { label: '*Yo soy tu loli uwu 😍*', type: 'json', url: 'https://raw.githubusercontent.com/elrebelde21/The-LoliBot-MD2/main/src/randow/loli.json', aliases: ['kawaii'] },
-  navidad: { label: '🎄 Navidad', type: 'json', url: 'https://raw.githubusercontent.com/elrebelde21/The-LoliBot-MD2/main/src/randow/navidad.json', aliases: [] },
-  messi: { label: '*🇦🇷 Messi*', type: 'json', url: 'https://raw.githubusercontent.com/elrebelde21/The-LoliBot-MD2/main/src/randow/messi.json', aliases: [] },
+  waifu: { label: '*💖 زوجتي الخيالية 💖*', api: 'waifu', nsfwApi: 'waifu', type: 'api', aliases: [] },
+  neko: { label: '🐱 فتاة القطة', api: 'neko', nsfwApi: 'neko', type: 'api', aliases: ['قطة', 'nyan'] },
+  shinobu: { label: '🍡 شينوبو', api: 'shinobu', type: 'api', aliases: [] },
+  megumin: { label: '💥 ميجومين', api: 'megumin', type: 'api', aliases: ['meg'] },
+  bully: { label: '😈 تنمر', api: 'bully', type: 'api', aliases: [] },
+  cuddle: { label: '🥰 عناق', api: 'cuddle', type: 'api', aliases: [] },
+  cry: { label: '😭 بكاء', api: 'cry', type: 'api', aliases: [] },
+  bonk: { label: '🔨 ضربة', api: 'bonk', type: 'api', aliases: [] },
+  wink: { label: '😉 غمزة', api: 'wink', type: 'api', aliases: [] },
+  handhold: { label: '🤝 مسك اليد', api: 'handhold', type: 'api', aliases: [] },
+  nom: { label: '🍪 أكل', api: 'nom', type: 'api', aliases: [] },
+  glomp: { label: '💞 عناق قوي', api: 'glomp', type: 'api', aliases: [] },
+  happy: { label: '😁 سعيد', api: 'happy', type: 'api', aliases: [] },
+  poke: { label: '👉 وخزة', api: 'poke', type: 'api', aliases: [] },
+  dance: { label: '💃 رقص', api: 'dance', type: 'api', aliases: [] },
+  meme: { label: '🤣 ميم', isMeme: true, aliases: ['memes', 'meme2'] },
+  loli: { label: '*أنا اللولي خاصتك uwu 😍*', type: 'json', url: 'https://raw.githubusercontent.com/elrebelde21/The-LoliBot-MD2/main/src/randow/loli.json', aliases: ['kawaii'] },
+  navidad: { label: '🎄 كريسماس', type: 'json', url: 'https://raw.githubusercontent.com/elrebelde21/The-LoliBot-MD2/main/src/randow/navidad.json', aliases: [] },
+  messi: { label: '*🇦🇷 ميسي*', type: 'json', url: 'https://raw.githubusercontent.com/elrebelde21/The-LoliBot-MD2/main/src/randow/messi.json', aliases: [] },
   ronaldo: { label: '_*Siiiuuuuuu*_', type: 'json', url: 'https://raw.githubusercontent.com/elrebelde21/The-LoliBot-MD2/main/src/randow/CristianoRonaldo.json', aliases: [] }
 }
 
@@ -36,7 +36,7 @@ aliasMap[alias.toLowerCase()] = item
 let handler = async (m, { conn, command }) => {
   try {
     const item = aliasMap[command.toLowerCase()]
-    if (!item) return m.reply('❌ Comando no reconocido.')
+    if (!item) return m.reply('❌ أمر غير معروف.')
 
     if (item.isMeme) {
       const url = await hispamemes.meme();
@@ -61,7 +61,7 @@ return
           apiPath = `https://api.waifu.pics/nsfw/${item.nsfwApi}`
         }
       } catch (err) {
-        console.error('❌ Error al verificar NSFW:', err)
+        console.error('❌ خطأ عند التحقق من NSFW:', err)
       }
       const res = await fetch(apiPath)
       const { url } = await res.json()
@@ -85,7 +85,7 @@ return
 
   } catch (e) {
     console.error('[❌ ERROR IMG]', e)
-    m.reply('❌ Error al enviar imagen.')
+    m.reply('❌ خطأ في إرسال الصورة.')
   }
 }
 handler.command = new RegExp(`^(${Object.keys(aliasMap).join('|')})$`, 'i')
