@@ -17,9 +17,9 @@ const archivosRespaldo = {
 
 async function obtenerPregunta(tipo) {
   const prompt = {
-    acertijo: "Genera un acertijo con su respuesta en formato JSON: {\"question\": \"<pregunta>\", \"response\": \"<respuesta>\"}.",
-    pelicula: "Genera un juego de adivinar película con emojis como pista, formato JSON: {\"question\": \"<pregunta>\", \"response\": \"<respuesta>\"}.",
-    trivia: "Genera una trivia en formato JSON: {\"question\": \"<pregunta>\\n\\nA) ...\\nB) ...\\nC) ...\", \"response\": \"<letra correcta>\"}."
+    acertijo: "أنشئ لغزًا مع إجابته بصيغة JSON: {\"question\": \"<السؤال>\", \"response\": \"<الإجابة>\"}.",
+    pelicula: "أنشئ لعبة تخمين الفيلم باستخدام الإيموجي كتلميح، بصيغة JSON: {\"question\": \"<السؤال>\", \"response\": \"<الإجابة>\"}.",
+    trivia: "أنشئ سؤال معلومات عامة (تريفيا) بصيغة JSON: {\"question\": \"<السؤال>\\n\\nA) ...\\nB) ...\\nC) ...\", \"response\": \"<الحرف الصحيح>\"}."
   }[tipo];
 
   for (let i = 0; i < 6; i++) {
@@ -48,23 +48,24 @@ async function obtenerPregunta(tipo) {
     preguntasUsadas.add(pregunta.question);
     return pregunta;
   } catch (e) {
-    console.error('Respaldo fallido', e);
+    console.error('فشل النسخ الاحتياطي', e);
     return null;
   }
 }
 
 let handler = async (m, { conn, command }) => {
 const id = m.chat;
-if (juegos[id]) return conn.reply(m.chat, '⚠️ Ya hay un juego activo en este chat.', m);
+if (juegos[id]) return conn.reply(m.chat, '⚠️ توجد لعبة نشطة بالفعل في هذه الدردشة.', m);
 
 const tipo = /acert/i.test(command) ? 'acertijo' : /pelicula|adv/i.test(command) ? 'pelicula' : /trivia/i.test(command) ? 'trivia' : null;
 if (!tipo) return;
 const pregunta = await obtenerPregunta(tipo);
-if (!pregunta) return m.reply('❌ No se pudo generar la pregunta.');
+if (!pregunta) return m.reply('❌ لم يتمكن من إنشاء السؤال.');
 const tiempo = tipo === 'trivia' ? timeout2 : timeout;
 const texto = `${pregunta.question}
 
-*• Tiempo:* ${tiempo / 1000}s\n*• Bono:* +${poin} XP`;
+*• الوقت:* ${tiempo / 1000} ثانية
+*• مكافأة:* +${poin} خبرة`;
 const enviado = await conn.sendMessage(m.chat, { text: texto }, { quoted: m });
 
 juegos[id] = {
@@ -75,7 +76,7 @@ puntos: poin,
 intentos: 3,
 timeout: setTimeout(() => {
 if (juegos[id]) {
-conn.reply(m.chat, `⏳ Se acabó el tiempo.\n*Respuesta:* ${pregunta.response}`, enviado);
+conn.reply(m.chat, `⏳ انتهى الوقت.\n*الإجابة:* ${pregunta.response}`, enviado);
 delete juegos[id];
 }}, tiempo)
 }};
@@ -91,17 +92,17 @@ const esCorrecta = userInput === correcta || similarity(userInput, correcta) >= 
 
 if (esCorrecta) {
 await m.db.query('UPDATE usuarios SET exp = exp + $1 WHERE id = $2', [juego.puntos, m.sender]);
-m.reply(`✅ *¡Correcto!*\nGanaste +${juego.puntos} XP`);
+m.reply(`✅ *صحيح!*\nلقد فزت بـ +${juego.puntos} خبرة`);
 clearTimeout(juego.timeout);
 delete juegos[id];
 } else {
 juego.intentos--;
 if (juego.intentos <= 0) {
-m.reply(`❌ Fallaste 3 veces. La respuesta era: *${juego.pregunta.response}*`);
+m.reply(`❌ لقد فشلت 3 مرات. كانت الإجابة: *${juego.pregunta.response}*`);
 clearTimeout(juego.timeout);
 delete juegos[id];
 } else {
-m.reply(`❌ Incorrecto. Te quedan *${juego.intentos}* intento(s).`);
+m.reply(`❌ إجابة خاطئة. تبقى لديك *${juego.intentos}* محاولات.`);
 }}
 };
 handler.help = ['acertijo', 'pelicula', 'trivia'];
